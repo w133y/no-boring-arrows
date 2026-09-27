@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.w1z4r_d.noboringarrows.mixin",
+  "compatibilityLevel": "JAVA_${java}",
+  "client": [
+    "ArrowLayerMixin",
+    "BeeStingerLayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

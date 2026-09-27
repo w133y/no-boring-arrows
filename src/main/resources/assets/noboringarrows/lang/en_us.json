@@ -1,0 +1,14 @@
+{
+  "key.noboringarrows.toggle": "Toggle stuck arrow/stinger hiding",
+  "key.category.noboringarrows.main": "No Boring Arrows",
+  "noboringarrows.config.title": "No Boring Arrows",
+  "noboringarrows.config.enabled": "Hiding: %s",
+  "noboringarrows.config.scope": "Apply to: %s",
+  "noboringarrows.scope.all": "Everyone",
+  "noboringarrows.scope.self": "Only me",
+  "noboringarrows.scope.others": "Only other players",
+  "noboringarrows.config.max_arrows": "Max arrows: %s",
+  "noboringarrows.config.max_stingers": "Max bee stingers: %s",
+  "noboringarrows.config.hidden": "Hidden",
+  "noboringarrows.config.unlimited": "Unlimited"
+}

@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# Loom / запуск гри з IDE
+run/
+remappedSrc/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# Системні
+.DS_Store
+Thumbs.db

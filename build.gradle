@@ -1,0 +1,77 @@
+plugins {
+	// 26.x без обфускації, 1.21.x потребує перемапування назв
+	id 'net.fabricmc.fabric-loom' version "${loom_version}" apply false
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}" apply false
+}
+
+// Налаштування конкретної версії Minecraft беруться з versions/<mcVersion>.properties
+def versionFile = file("versions/${project.mcVersion}.properties")
+if (!versionFile.exists()) {
+	throw new GradleException("Немає файлу ${versionFile}. Доступні: " + file('versions').list().join(', '))
+}
+def vp = new Properties()
+versionFile.withInputStream { vp.load(it) }
+['minecraft_version', 'mc_dep', 'fabric_api_version', 'modmenu_version', 'compat', 'java', 'remap'].each { key ->
+	if (!vp.getProperty(key)) {
+		throw new GradleException("У файлі ${versionFile.name} немає параметра '${key}'")
+	}
+}
+def remap = vp.remap.toBoolean()
+def javaVersion = vp.java as int
+
+apply plugin: remap ? 'net.fabricmc.fabric-loom-remap' : 'net.fabricmc.fabric-loom'
+
+version = "${project.mod_version}+${vp.minecraft_version}"
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "src/compat/${vp.compat}/java"
+		}
+	}
+}
+
+repositories {
+	maven {
+		name = 'Terraformers'
+		url = 'https://maven.terraformersmc.com/releases/'
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${vp.minecraft_version}"
+	if (remap) {
+		mappings loom.officialMojangMappings()
+		modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		modImplementation "net.fabricmc.fabric-api:fabric-api:${vp.fabric_api_version}"
+		// Mod Menu потрібен лише для компіляції інтеграції, мод працює і без нього
+		modCompileOnly("com.terraformersmc:modmenu:${vp.modmenu_version}") { transitive = false }
+	} else {
+		implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		implementation "net.fabricmc.fabric-api:fabric-api:${vp.fabric_api_version}"
+		compileOnly("com.terraformersmc:modmenu:${vp.modmenu_version}") { transitive = false }
+	}
+}
+
+processResources {
+	def props = [version: project.version, mc_dep: vp.mc_dep, java: vp.java]
+	inputs.properties props
+	filesMatching(["fabric.mod.json", "*.mixins.json"]) {
+		expand props
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = javaVersion
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.toVersion(javaVersion)
+	targetCompatibility = JavaVersion.toVersion(javaVersion)
+}

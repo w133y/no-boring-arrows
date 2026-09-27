@@ -1,0 +1,14 @@
+{
+  "key.noboringarrows.toggle": "Увімк./вимк. приховування стріл і жал",
+  "key.category.noboringarrows.main": "No Boring Arrows",
+  "noboringarrows.config.title": "No Boring Arrows",
+  "noboringarrows.config.enabled": "Приховування: %s",
+  "noboringarrows.config.scope": "Застосовувати до: %s",
+  "noboringarrows.scope.all": "Усіх гравців",
+  "noboringarrows.scope.self": "Тільки себе",
+  "noboringarrows.scope.others": "Тільки інших гравців",
+  "noboringarrows.config.max_arrows": "Макс. стріл: %s",
+  "noboringarrows.config.max_stingers": "Макс. жал бджіл: %s",
+  "noboringarrows.config.hidden": "Сховано",
+  "noboringarrows.config.unlimited": "Без обмеження"
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "noboringarrows",
+  "version": "${version}",
+  "name": "No Boring Arrows",
+  "description": "Hides or limits arrows and bee stingers stuck in players. Client-side only.",
+  "authors": [
+    "w1z4r_d"
+  ],
+  "contact": {
+    "homepage": "https://github.com/w133y/noboringarrows",
+    "sources": "https://github.com/w133y/noboringarrows",
+    "issues": "https://github.com/w133y/noboringarrows/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/noboringarrows/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.w1z4r_d.noboringarrows.NoBoringArrowsClient"
+    ],
+    "modmenu": [
+      "com.w1z4r_d.noboringarrows.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "noboringarrows.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19",
+    "minecraft": "${mc_dep}",
+    "java": ">=${java}",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
