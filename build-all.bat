@@ -4,13 +4,13 @@ setlocal EnableDelayedExpansion
 cd /d "%~dp0"
 
 echo ============================================
-echo   No Boring Arrows - збірка під усі версії
+echo   No Boring Arrows - building all versions
 echo ============================================
 echo.
 
 where java >nul 2>nul
 if errorlevel 1 (
-    echo [ПОМИЛКА] Java не знайдено. Встанови Java 25 і запусти ще раз.
+    echo [ERROR] Java not found. Install Java 25 and run this again.
     pause
     exit /b 1
 )
@@ -28,7 +28,7 @@ for %%V in (%VERSIONS%) do (
     echo ---- Minecraft %%V ----
     call gradlew.bat clean build -PmcVersion=%%V --no-daemon
     if errorlevel 1 (
-        echo [ПОМИЛКА] Збірка під %%V не вдалася, дивись лог вище.
+        echo [ERROR] Build for %%V failed, see the log above.
         set FAILED=!FAILED! %%V
     ) else (
         copy /y "build\libs\noboringarrows-*+%%V.jar" out\ >nul
@@ -38,8 +38,8 @@ for %%V in (%VERSIONS%) do (
 
 echo.
 echo ============================================
-if defined OK echo Готово:!OK!
-if defined FAILED echo Не вдалося:!FAILED!
-echo Готові моди лежать у папці: %~dp0out
+if defined OK echo Built:!OK!
+if defined FAILED echo Failed:!FAILED!
+echo Finished mods are in: %~dp0out
 echo ============================================
 pause
